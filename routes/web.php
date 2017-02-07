@@ -44,4 +44,12 @@ Route::group(['middleware' => ['auth'],'prefix' => 'settings'], function () {
 	Route::post('/event-update',['as' => 'settings.event.update','uses' => 'EventController@update']);
 	Route::post('/event-delete',['as' => 'settings.event.delete','uses' => 'EventController@delete']);
 
+	Route::get('/reservation-request',['as' => 'reservation.index','uses' => 'ReservationController@index']); 
+	Route::get('/reservation-client',['as' => 'reservation.client','uses' => 'ReservationController@client']); 
+	Route::get('/reservation-approved',['as' => 'reservation.approve','uses' => 'ReservationController@approved']); 
+	Route::post('/reservation-create',['as' => 'settings.reservation.create','uses' => 'ReservationController@create']);
+	Route::post('/reservation-update',['as' => 'settings.reservation.update','uses' => 'ReservationController@update']);
+	Route::post('/reservation-delete',['as' => 'settings.reservation.delete','uses' => 'ReservationController@delete']);
+
+
 }); 

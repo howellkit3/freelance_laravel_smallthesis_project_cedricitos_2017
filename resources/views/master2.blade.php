@@ -9,7 +9,9 @@
       <title>@yield('title')</title>
       <link rel="stylesheet" href="{{$asset}}milestone/vendor/bower-jvectormap/jquery-jvectormap-1.2.2.css">
       <link rel="stylesheet" href="{{$asset}}custom/multiselect/css/multi-select.css">
+      <link rel="stylesheet" href="{{$asset}}vendor/fullcalendar/dist/fullcalendar.min.css">
       
+      <link rel="stylesheet" href="{{$asset}}milestone/styles/app.min.css">
       <link rel="stylesheet" href="{{$asset}}milestone/styles/app.min.css">
       <script   src="{{$asset}}milestone/scripts/jquery-1.12.0.min.js" ></script>
       @yield('header-scripts')
@@ -82,11 +84,18 @@
       <div class="app expanding">
          <div class="off-canvas-overlay" data-toggle="sidebar"></div>
          <div class="sidebar-panel">
-            <div class="brand">  <a href="javascript:;" data-toggle="sidebar" class="toggle-offscreen hidden-lg-up"><i class="material-icons">menu</i> </a>   <a class="brand-logo"><img class="expanding-hidden" src="{{$asset}}milestone/images/logo.png" alt=""> </a> </div>
+            <div class="brand">  
+               <a href="javascript:;" data-toggle="sidebar" class="toggle-offscreen hidden-lg-up">
+                  <i class="material-icons">menu</i> 
+               </a>   
+               <a class="brand-logo">
+                  <!-- <img class="expanding-hidden" src="{{$asset}}milestone/images/cedricitos.png" alt=""> --> 
+               </a> </div>
             <div class="nav-profile dropdown">
                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                  <div class="user-image"><img data-url="{{config('app.images')}}diamond/profile/{{Auth::user()->id}}/40x40" src="" class="avatar img-circle" alt="user" title="user"></div> 
-                  <div class="user-info expanding-hidden">{{Auth::user()->name}}<small class="bold">Administrator</small></div>
+                  <div class="user-image">
+                     <img data-url="{{config('app.images')}}diamond/profile/{{Auth::user()->id}}/40x40" src="{{$asset}}image/cedricitos.png" class="avatar img-circle" alt="user" title="user"></div> 
+                  <div class="user-info expanding-hidden">{{Auth::user()->name}}<small class="bold">{{(Auth::user()->role =2) ? 'Administartor' : 'Guest' }}</small></div>
                </a>
                <div class="dropdown-menu">
                   <a class="dropdown-item" href="">Settings</a> <a class="dropdown-item" href="javascript:;">Upgrade</a> <a class="dropdown-item" href="javascript:;"><span>Notifications</span> <span class="tag bg-primary">34</span></a>
@@ -104,19 +113,8 @@
                          <span>Reservation</span>
                      </a>
                      <ul class="sub-menu">
-                        <li>
-                           <a href="javascript:;"><span class="menu-caret"><i class="material-icons">arrow_drop_down</i></span> <span>for approval</span></a>
-                           <ul class="sub-menu">
-                              <li><a href=""><span> Disputes(agents) </span></a></li>
-                              <li><a href=""><span> Disputes </span></a></li>
-                           </ul>
-                        </li>
-                        <li>
-                           <a href="javascript:;"><span class="menu-caret"><i class="material-icons">arrow_drop_down</i></span> <span>Request</span></a>
-                           <ul class="sub-menu">
-                              <li><a href=""><span>Disputes</span></a></li>
-                           </ul>
-                        </li>                                                   
+                        <li><a href="{{route('reservation.index')}}"><span>Requests</span></a></li>
+                        <li><a href="{{route('reservation.approve')}}"><span>Approved</span></a></li>                                             
                      </ul> 
                   </li> 
 
