@@ -35,7 +35,31 @@ class ReservationController extends Controller
     		$event_data_pluck[$value['id']] =  $value['name'];
     	}
 
-       return view('reservation.reservation.client', compact('reservation','event_data_pluck','event_data','user'));
+
+    	$events = [];
+
+    	$events[] = \Calendar::event(
+    		"Event one",
+    		true,
+    		'2017-01-02 11:00',
+    		'2017-01-06 11:00',
+    		0
+    	);
+
+    	$events[] = \Calendar::event(
+    		"Event two",
+    		true,
+    		'2017-02-02 11:00',
+    		'2017-02-06 05:00',
+    		0
+    	);
+
+    	$calendar = \Calendar::addEvents($events)
+    		->setOptions([
+    			'firstDay' => 1
+    	])->setCallbacks([]);
+
+       return view('reservation.reservation.client', compact('reservation','event_data_pluck','event_data','user','calendar'));
     }
 
 
@@ -44,18 +68,23 @@ class ReservationController extends Controller
    		$reserve = new Reservation;
 
    		$user = Auth::user();
-
-   		//print_r('<pre>'); print_r($user->id); print_r('</pre>'); exit; 
-   		print_r('<pre>'); print_r($request->input()); print_r('</pre>'); exit; 
 		
 		if(!empty($request->input())){
 
+			// $startdate = date("Y-m-d", strtotime($request->input("start_date"))) ;
+			// $starttime = date("hh:MM", strtotime($request->input("start_time")));
+
+			$startdate = date("Y-m-d H:i:s", strtotime($request->input("start_date") . $request->input("start_time")));
+			$enddate = date("Y-m-d H:i:s", strtotime($request->input("end_date") . $request->input("end_time")));
+			$foodtaste =  date('Y-m-d H:i:s',(strtotime ( '-2 day' , strtotime ( $startdate) ) ));
+			
 			$reserve['user_id'] = $user->id;
 			$reserve['status'] = $request->input("status");
-			$reserve['status'] =$request->input("status");
 			$reserve['event_id'] =$request->input("event_id");
-		
-			$food->save();
+			$reserve['event_date_from'] = $startdate;
+			$reserve['event_date_to'] = $enddate;
+			$reserve['food_taste_date'] =$foodtaste;
+			$reserve->save();
 
 		return back();
 
