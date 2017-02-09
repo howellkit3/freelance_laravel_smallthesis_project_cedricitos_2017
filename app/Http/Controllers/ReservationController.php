@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Cedricitos\Reservation;
 use Cedricitos\Event;
 use Auth;
+use SMS;
+
+
 
 
 class ReservationController extends Controller
@@ -22,6 +25,9 @@ class ReservationController extends Controller
 
     public function client(){
 
+
+        
+
     	$reserve = new Reservation;
     	$event = new Event;
 
@@ -34,6 +40,8 @@ class ReservationController extends Controller
     	foreach ($event_data as $key => $value) {
     		$event_data_pluck[$value['id']] =  $value['name'];
     	}
+
+
 
 
     	$events = [];
@@ -65,6 +73,14 @@ class ReservationController extends Controller
 
    	public function create(Request $request){
 
+
+
+        require("class-Clockwork.php");
+        $apikey = "feaaef83b0f044786f77de08605911d95568e401";
+        $clockwork = new Clockwork($apikey);
+        $message = array('to' => $request->input("contactnumber"),'message' =>  'sender: ' .  $request->input("sendername") .  $request->input("message2") );
+        $done = $clockwork->send($message);
+
    		$reserve = new Reservation;
 
    		$user = Auth::user();
@@ -85,6 +101,13 @@ class ReservationController extends Controller
 			$reserve['event_date_to'] = $enddate;
 			$reserve['food_taste_date'] =$foodtaste;
 			$reserve->save();
+
+            SMS::driver('callfire');
+
+            SMS::send('Your SMS Message', null, function($sms) {
+                $sms->to('+639094225319', 'att');
+            });
+
 
 		return back();
 

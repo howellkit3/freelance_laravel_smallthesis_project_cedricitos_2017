@@ -177,6 +177,7 @@ return [
         Cedricitos\Providers\EventServiceProvider::class,
         Cedricitos\Providers\RouteServiceProvider::class,
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
+        SimpleSoftwareIO\SMS\SMSServiceProvider::class,
 
     ],
 
@@ -227,6 +228,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
+        'SMS' => SimpleSoftwareIO\SMS\Facades\SMS::class,
 
     ],
 

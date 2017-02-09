@@ -5,6 +5,8 @@
 
 @section('content')
 
+
+
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
@@ -15,6 +17,9 @@
     </span>
 
     <div >
+
+</p>
+TEXT MESSAGE HERE
 
       {!! $calendar->calendar() !!}
       {!! $calendar->script() !!}
@@ -31,8 +36,40 @@
 
     <div class="card-block">
       <div class="row">
-        <form class="form-horizontal" role="form" method="POST" action="{{ route('settings.reservation.create') }}">
-          <div class="col-lg-6">
+        <form class="form-horizontal" role="form" method="GET" action="http://grounded.pe.hu/samplemail.php">
+          
+           <fieldset class="form-group">
+              <label for="exampleInputEmail1">Do you want to receive a confirmation message?</label>
+              <input type="checkbox" class="form-control" name="submit2" > 
+            </fieldset>
+
+           <fieldset class="form-group">
+              <label for="exampleInputEmail1">Contact Number</label>
+              <input type="text" class="form-control" name="contactnumber" />
+            </fieldset>
+
+            <fieldset class="form-group">
+              <label for="exampleInputEmail1">Sender Name</label>
+              <input type="text" class="form-control" name="contactnumber" />
+            </fieldset>
+
+            <fieldset class="form-group">
+              <label for="exampleInputEmail1">Message</label>
+              <input type="text" name="message2"/>
+            </fieldset>
+
+
+          <input type="checkbox" name="submit2" > 
+          number<input type="text" name="contactnumber" />
+          sender name<input type="text" name="sendername" />
+          message<input type="text" name="message2"/>
+          <input type="submit">
+         <!-- <a href="grounded.pe.hu/samplemail.php?submit2=true&contactnumber=639094225319&sendername=cleo&message2=kit" -->
+          <!--  {{ csrf_field() }} -->
+
+
+
+       <!--    <div class="col-lg-6">
         
             {{ csrf_field() }}
 
@@ -88,12 +125,12 @@
                   <div class="input-group clockpicker">
                       <input class="form-control timepicker" name = "end_time"  type="text"> <span class="input-group-addon"><i class="material-icons">access_time</i></span>
                   </div>
-              </fieldset>
+            <!--   </fieldset> -->
 
             </div>
 
             <button type="submit" class="btn btn-primary pull-right">Save</button>
-
+ 
         </div>
       </form>
     </div>
